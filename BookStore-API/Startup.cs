@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using BookStore_API.Mappings;
 
 namespace BookStore_API
 {
@@ -44,7 +45,7 @@ namespace BookStore_API
                .AllowAnyMethod()
                .AllowAnyHeader();
             }));
-
+            _ = services.AddAutoMapper(typeof(Maps));
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Book Store API",
                     Version= "v1",
