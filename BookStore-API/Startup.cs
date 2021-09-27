@@ -52,12 +52,14 @@ namespace BookStore_API
                 Description="This is an educational API for Book Store"
                 });
            
-            var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xpath = ConfigurationPath.Combine(AppContext.BaseDirectory, xfile);
-                c.IncludeXmlComments(xpath);
+            //var xfile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //var xpath = ConfigurationPath.Combine(AppContext.BaseDirectory, xfile);
+            //    c.IncludeXmlComments(xpath);
                 services.AddSingleton<ILoggerService,LoggerService>();
+                services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddControllers();
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
