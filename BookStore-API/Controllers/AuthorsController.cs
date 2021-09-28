@@ -85,6 +85,7 @@ namespace BookStore_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create([FromBody] AuthorCreateDTO authorDTO)
         {
+            var location = GetControllerActionNames();
             try
             {
                 _logger.LogInfo($"Author Submission Attempted");
@@ -107,8 +108,9 @@ namespace BookStore_API.Controllers
                     
                     return InternalError("Author creation failed");
                 }
-                _logger.LogInfo("Aithor Cretated");
+                _logger.LogInfo($"{location}: Creation was successful");
                 return Created("Create", new { author });
+                
             }
             catch (Exception e)
             {
@@ -187,8 +189,15 @@ namespace BookStore_API.Controllers
             }
         }
 
+        private string GetControllerActionNames()
+        {
+            var controller = ControllerContext.ActionDescriptor.ControllerName;
+            var action = ControllerContext.ActionDescriptor.ActionName;
 
-            private ObjectResult InternalError(string message)
+            return $"{controller} - {action}";
+        }
+
+        private ObjectResult InternalError(string message)
         {
             _logger.LogError(message);
             return StatusCode(500, "Something went wrong please contact adminstrator");
